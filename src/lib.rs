@@ -38,7 +38,7 @@ fn ypath_search(env: &Env, yaml: String, ypath: String) -> Result<Value<'_>> {
                 }
 
                 if ypath_vec.is_empty() {
-                    return (marker.index() as i64).into_lisp(env);
+                    return ((marker.index() + 1) as i64).into_lisp(env);
                 }
             }
             Event::MappingStart(_) | Event::SequenceStart(_) => {
