@@ -15,7 +15,7 @@ in a yaml file with `goto-char`
 ```elisp
 (yamlmod-load "yes")                                                  ;; => 't
 (yamlmod-load "no")                                                   ;; => nil
-(yamlmod-load "[1 2 3]")                                              ;; => ["1 2 3"]
+(yamlmod-load "[1, 2, 3]")                                            ;; => [1 2 3] ;; a vector object
 (yamlmod-load "{a: 1, b: 2}")                                         ;; => #<hash-table equal 2/65 0x4e436fe1>
 
 (setq test (yamlmod-load "{a: 1, b: 1}"))
@@ -31,7 +31,7 @@ in a yaml file with `goto-char`
 (yamlmod-ypath-search "{a: [1, 2], b: {c: [3, 4]}}" "a")              ;; => 2
 (yamlmod-ypath-search "{a: [1, 2], b: {c: [3, 4]}}" "a.2")            ;; => 9
 (yamlmod-ypath-search "{a: [1, 2], b: {c: [3, 4]}}" "a.b")            ;; => 13
-(yamlmod-ypath-search "{a: [1, 2], b: {c: [3, 4]}}" "a.b.2")          ;; => nil for not found
+(yamlmod-ypath-search "{a: [1, 2], b: {c: [3, 4]}}" "a.b.2")          ;; => nil ;; for not found
 
 ```
 
