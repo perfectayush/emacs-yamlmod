@@ -5,6 +5,7 @@
 ;; Author: Ayush Goyal <perfectayush@gmail.com>
 ;; URL: https://github.com/perfectayush/emacs-yamlmod
 ;; Version: 0.1.0
+;; License: MIT
 
 
 (require 'yamlmod)

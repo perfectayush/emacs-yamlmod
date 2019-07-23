@@ -5,6 +5,7 @@ description = "Emacs dynamic module to parse yaml written in Rust"
 authors = ["Ayush Goyal <ayush@helpshift.com>"]
 edition = "2018"
 keywords = ["emacs", "emacs-module", "yaml", "parser"]
+license = "MIT License"
 
 [lib]
 crate-type = ["cdylib"]
