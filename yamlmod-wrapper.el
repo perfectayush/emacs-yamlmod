@@ -1,4 +1,4 @@
-;;; yamlmod-wrapper.el - Wraps yamlmod dynamic module in elisp
+;;; yamlmod-wrapper.el --- Wraps yamlmod dynamic module in elisp
 
 ;; Copyright (C) 2019 by Ayush Goyal
 
@@ -6,6 +6,7 @@
 ;; URL: https://github.com/perfectayush/emacs-yamlmod
 ;; Version: 0.1.0
 ;; License: MIT
+;; Package-Requires: ((f "0.20.0"))
 
 
 (require 'yamlmod)
