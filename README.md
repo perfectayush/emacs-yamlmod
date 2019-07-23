@@ -70,6 +70,7 @@ implementation a lot easier.
 ## Known Issues
 - Currently, all boolean like strings "yes", "Yes", "no", "No", "True", "False"
   etc. are always parsed as 't or nil, even if they are quoted. 
+- Only tested on macOS, but should be portable on other platforms.
   
 ## Todos
 - Write a dump function to dump elisp data structure to yaml
