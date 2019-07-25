@@ -18,8 +18,8 @@ in a yaml file with `goto-char`
 (yamlmod-load "[1, 2, 3]")                                            ;; => [1 2 3] ;; a vector object
 (yamlmod-load "{a: 1, b: 2}")                                         ;; => #<hash-table equal 2/65 0x4e436fe1>
 
-(setq test (yamlmod-load "{a: 1, b: 1}"))
-(gethash "a" test)                                                    ;; => 2 (#o2, #x2, ?\C-b)
+(setq test (yamlmod-load "{a: 1, b: 2}"))
+(gethash "b" test)                                                    ;; => 2 (#o2, #x2, ?\C-b)
 
 
 ;; Parse a yaml file to elisp data structure
