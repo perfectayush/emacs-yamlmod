@@ -11,5 +11,5 @@ license = "MIT License"
 crate-type = ["cdylib"]
 
 [dependencies]
-emacs = "0.10.1"
+emacs = "0.10.3"
 yaml-rust = "0.4.3"

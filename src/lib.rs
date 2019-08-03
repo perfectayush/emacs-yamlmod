@@ -1,4 +1,4 @@
-use emacs::{defun, Env, IntoLisp, Result, Value};
+use emacs::{defun, Env, Result, Value};
 use yaml_rust::{parser::Parser, Event, YamlLoader};
 
 mod yamlwrapper;
@@ -15,16 +15,15 @@ fn init(env: &Env) -> Result<Value<'_>> {
 
 // Parse a yaml string into elisp data structure
 #[defun]
-fn load(env: &Env, yaml: String) -> Result<Value<'_>> {
+fn load(yaml: String) -> Result<YamlWrapper> {
     let doc0 = &YamlLoader::load_from_str(&yaml).unwrap();
-    let yaml_wrapper = YamlWrapper(doc0[0].clone());
-    yaml_wrapper.into_lisp(env)
+    Ok(YamlWrapper(doc0[0].clone()))
 }
 
 // Search a ypath in yaml. ypath is a dot separated string, to act as nested key
 // lookup for yaml
 #[defun]
-fn ypath_search(env: &Env, yaml: String, ypath: String) -> Result<Value<'_>> {
+fn ypath_search(yaml: String, ypath: String) -> Result<Option<usize>> {
     let mut ypath_vec = reset_search_ypath_vec(&ypath);
     let mut doc = Parser::new(yaml.chars());
     let mut search_depth: u64 = 0;
@@ -38,7 +37,7 @@ fn ypath_search(env: &Env, yaml: String, ypath: String) -> Result<Value<'_>> {
                 }
 
                 if ypath_vec.is_empty() {
-                    return ((marker.index() + 1) as i64).into_lisp(env);
+                    return Ok(Some(marker.index() + 1));
                 }
             }
             Event::MappingStart(_) | Event::SequenceStart(_) => {
@@ -54,7 +53,7 @@ fn ypath_search(env: &Env, yaml: String, ypath: String) -> Result<Value<'_>> {
             _ => (),
         }
     }
-    return env.intern("nil");
+    return Ok(None)
 }
 
 // helper function for ypath_search
