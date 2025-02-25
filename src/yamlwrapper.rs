@@ -1,13 +1,12 @@
 use emacs::{Env, IntoLisp, Result, Value};
-use yaml_rust::Yaml;
+use yaml_rust2::Yaml;
 
 pub struct YamlWrapper(pub Yaml);
 
 impl<'e> IntoLisp<'e> for YamlWrapper {
-    fn into_lisp(self, env: &'e Env) -> Result<Value<'_>> {
+    fn into_lisp(self, env: &'e Env) -> Result<Value<'e>> {
         match self.0 {
-            Yaml::Array(t) => env.call(
-                "vector",
+            Yaml::Array(t) => env.vector(
                 &t.into_iter()
                     .map(|t| YamlWrapper(t).into_lisp(env).unwrap())
                     .collect::<Vec<_>>(),

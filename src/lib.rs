@@ -1,5 +1,5 @@
-use emacs::{defun, Env, Result, Value};
-use yaml_rust::{parser::Parser, Event, YamlLoader};
+use emacs::{Env, Result, Value, defun};
+use yaml_rust2::{Event, YamlLoader, parser::Parser};
 
 mod yamlwrapper;
 use yamlwrapper::YamlWrapper;
@@ -28,7 +28,7 @@ fn ypath_search(yaml: String, ypath: String) -> Result<Option<usize>> {
     let mut doc = Parser::new(yaml.chars());
     let mut search_depth: u64 = 0;
     loop {
-        let (event, marker) = doc.next().unwrap();
+        let (event, marker) = doc.next_token().unwrap();
         match event {
             Event::DocumentEnd => break,
             Event::Scalar(scalar, _, _, _) => {
@@ -40,7 +40,7 @@ fn ypath_search(yaml: String, ypath: String) -> Result<Option<usize>> {
                     return Ok(Some(marker.index() + 1));
                 }
             }
-            Event::MappingStart(_) | Event::SequenceStart(_) => {
+            Event::MappingStart(_, _) | Event::SequenceStart(_, _) => {
                 search_depth += 1;
             }
             Event::MappingEnd | Event::SequenceEnd => {
@@ -53,7 +53,7 @@ fn ypath_search(yaml: String, ypath: String) -> Result<Option<usize>> {
             _ => (),
         }
     }
-    return Ok(None)
+    return Ok(None);
 }
 
 // helper function for ypath_search
